@@ -4,7 +4,7 @@ resource "google_cloud_run_v2_service" "bookmart" {
 
   template {
     containers {
-      image = "us-central1-docker.pkg.dev/my-project-007-499807/bookmart-repo/bookmart-nginx:v1"
+      image = "us-central1-docker.pkg.dev/${var.project_id}/bookmart-repo/${var.image_name}:${var.image_tag}"
 
       ports {
         container_port = 80
