@@ -39,3 +39,11 @@ jobs:
       - name: Push Docker Image
         run: |
           docker push us-central1-docker.pkg.dev/my-project-007-499807/bookmart-repo/bookmart-nginx:${{ github.sha }}
+
+      - name: Deploy to Cloud Run
+        run: |
+          gcloud run deploy bookmart-service \
+            --image us-central1-docker.pkg.dev/my-project-007-499807/bookmart-repo/bookmart-nginx:${{ github.sha }} \
+            --region us-central1 \
+            --platform managed \
+            --allow-unauthenticated
