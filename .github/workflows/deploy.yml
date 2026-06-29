@@ -10,7 +10,7 @@ permissions:
   id-token: write
 
 jobs:
-  authenticate:
+  build:
     runs-on: ubuntu-latest
 
     steps:
@@ -23,10 +23,13 @@ jobs:
           workload_identity_provider: "projects/405188726817/locations/global/workloadIdentityPools/github-pool/providers/github-provider"
           service_account: "github-actions@my-project-007-499807.iam.gserviceaccount.com"
 
-      - name: Setup Google Cloud CLI
+      - name: Setup Google Cloud SDK
         uses: google-github-actions/setup-gcloud@v2
 
-      - name: Verify Authentication
+      - name: Configure Docker
         run: |
-          gcloud auth list
-          gcloud config list
+          gcloud auth configure-docker us-central1-docker.pkg.dev --quiet
+
+      - name: Build Docker Image
+        run: |
+          docker build -t bookmart-nginx:v1 ./app
