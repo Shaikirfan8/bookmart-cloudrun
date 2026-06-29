@@ -35,3 +35,7 @@ jobs:
           docker build \
           -t us-central1-docker.pkg.dev/my-project-007-499807/bookmart-repo/bookmart-nginx:${{ github.sha }} \
           ./app
+
+      - name: Push Docker Image
+        run: |
+          docker push us-central1-docker.pkg.dev/my-project-007-499807/bookmart-repo/bookmart-nginx:${{ github.sha }}
